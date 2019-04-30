@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<!-- 指定struts2是否以开发模式运行
+			1.热加载主配置.(不需要重启即可生效)
+			2.提供更多错误信息输出,方便开发时的调试
+	 -->
+	<constant name="struts.devMode" value="true"></constant>
+	<package name="strutsDemo" extends="struts-default" namespace="/">
+	
+		<global-results>
+			<result name="error">/error.jsp</result>
+		</global-results>
+	
+		<action name="demo_*" class="com.test.action.DemoAction" method="{1}">
+			<result name="success">/success.jsp</result>
+			<result name="list">/WEB-INF/jsp/studentList.jsp</result>
+		</action>
+	</package>
+</struts>

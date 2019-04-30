@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+	"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<session-factory>
+
+		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+		<property name="hibernate.connection.url">jdbc:mysql:///testssh</property>
+		<property name="hibernate.connection.username">root</property>
+		<property name="hibernate.connection.password">123456</property>
+		
+		
+		<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+		
+		<property name="hibernate.show_sql">false</property>
+		<property name="hibernate.format_sql">false</property>
+		
+		<property name="hibernate.hbm2ddl.auto">update</property>
+		
+		
+		 <!-- 指定hibernate操作数据库时的隔离级别 
+			#hibernate.connection.isolation 1|2|4|8		
+			0001	1	读未提交
+			0010	2	读已提交
+			0100	4	可重复读
+			1000	8	串行化
+		 -->
+		 <property name="hibernate.connection.isolation">4</property>
+		 
+		 <!-- 指定session与当前线程绑定 -->
+		 <property name="hibernate.current_session_context_class">thread</property>
+		 
+		 <mapping resource="pojo/Student.hbm.xml"/>
+		 <mapping resource="pojo/Teacher.hbm.xml"/>
+	</session-factory>
+	</hibernate-configuration>
