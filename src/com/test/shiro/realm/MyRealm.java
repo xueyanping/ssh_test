@@ -20,7 +20,7 @@ public class MyRealm extends AuthorizingRealm {
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection arg0) {
 		System.out.println("授权方法");
 		SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
-		 Object principal = SecurityUtils.getSubject().getPrincipal();
+		Object principal = SecurityUtils.getSubject().getPrincipal();
 		 
 		if(principal.equals("小李子")||principal.equals("邓学文")) {
 			info.addStringPermission("list");

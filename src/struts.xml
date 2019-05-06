@@ -10,6 +10,19 @@
 	<constant name="struts.devMode" value="true"></constant>
 	<package name="strutsDemo" extends="struts-default" namespace="/">
 	
+		<!-- 配置拦截器 -->
+	<interceptors>
+		<interceptor name="loginInterceptor" class="com.test.interceptor.LoginInterceptor">
+			<param name="excludeMethods">index</param>
+		</interceptor>
+		<interceptor-stack name="myStack">
+			<interceptor-ref name="loginInterceptor"></interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+		</interceptor-stack>
+	</interceptors>
+	
+	<default-interceptor-ref name="myStack"></default-interceptor-ref>
+	
 		<global-results>
 			<result name="error">/error.jsp</result>
 		</global-results>
