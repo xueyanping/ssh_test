@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
+import com.test.cxf.service.ISurveyService;
 import com.test.pojo.Student;
 import com.test.service.ITestService;
 
@@ -23,9 +24,12 @@ public class DemoAction extends ActionSupport implements ModelDriven<Student> {
 
 	private static final long serialVersionUID = 1L;
 
-	
+	@Autowired
 	private ITestService testService;
-
+	
+	@Autowired
+	private ISurveyService surveyService;
+	
 	Student student = new Student();
 
 	public String index() {
@@ -48,11 +52,12 @@ public class DemoAction extends ActionSupport implements ModelDriven<Student> {
 
 		HttpServletRequest request = ServletActionContext.getRequest();
 		request.getSession().setAttribute("student", student);
+		System.out.println("result==="+surveyService.vote("Macile", 20));
 		System.out.println(testService.get());
 		return "success";
 	}
 
-	@RequiresPermissions("list")
+	//@RequiresPermissions("list")
 	public String list() {
 		return "list";
 	}
@@ -67,10 +72,20 @@ public class DemoAction extends ActionSupport implements ModelDriven<Student> {
 		return student;
 	}
 
-	@Autowired
-	public void setTestService(ITestService testService) {
-		this.testService = testService;
-	}
+	//@Autowired
+//	public void setTestService(ITestService testService) {
+//		this.testService = testService;
+//	}
+	
+	
+//	public void setSurveyService(ISurveyService surveyService) {
+//		this.surveyService = surveyService;
+//	}
+
+	
+
+	
+	
 	
 	
 	

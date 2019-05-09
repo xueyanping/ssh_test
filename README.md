@@ -15,3 +15,9 @@ ssh整合shiro时 Controller层使用Shiro注解@RequiresPermissions后使用@Au
 使用拦截器时自定义的拦截器失效
 #answer
 此处涉及到拦截器的拦截规则（以登录拦截为例）：在未登录情况下除了访问struts中配置的（例如<param name="excludeMethods">index</param>）方法外自动会跳转到login.jsp页面而不执行拦截器的doIntercept方法。若已登录则在访问（接上例）除index之外的方法都会被此拦截器拦截从而执行doIntercept方法。
+
+3、
+#question
+继问题1发现使用shiro的@RequiresPermissions在整合cxf时@Autowired和set方法两种注入方法同时失效
+#answer
+这是由于shiro的加载顺序实在bean之前就已经注入了的（此时还是不理解，待以后填坑），根本原因是使用的Shiro的@RequiresPermissions注解，因此建议以后将需要授权的方法写在xml配置文件中，这样@Autowired就完全正常注入了（该问题困扰两天后得出此解决方法，以后有更好的的方法再补充）

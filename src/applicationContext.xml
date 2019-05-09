@@ -4,15 +4,19 @@
 	xmlns:aop="http://www.springframework.org/schema/aop"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:jaxws="http://cxf.apache.org/jaxws"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd 
 	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd 
 	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd 
-	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd">
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd
+	http://cxf.apache.org/jaxws 
+    http://cxf.apache.org/schemas/jaxws.xsd">
 
-	<context:component-scan base-package="com.test" />
+
 	<context:property-placeholder
 		location="classpath:conf/db.properties" />
-
+	<context:component-scan base-package="com.test" />
+	<context:annotation-config />
 	<!-- 连接池 -->
 	<bean name="dataSource"
 		class="com.mchange.v2.c3p0.ComboPooledDataSource">
@@ -68,7 +72,7 @@
 		class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
 		<property name="dataSource" ref="dataSource"></property>
 		<property name="hibernateProperties">
-			<props>				
+			<props>
 				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
 
 				<prop key="hibernateshow_sql">true</prop>
@@ -77,9 +81,8 @@
 			</props>
 		</property>
 		<!-- 引入orm元数据 导入元数据所在包路径 Spring会自动扫描路径下的配置 -->
-		<!-- <property name="mappingDirectoryLocations"
-			value="classpath:com/test/pojo"></property> -->
-			<!-- 注入hibernate的映射文件 -->
+		<!-- <property name="mappingDirectoryLocations" value="classpath:com/test/pojo"></property> -->
+		<!-- 注入hibernate的映射文件 -->
 		<property name="mappingLocations">
 			<list>
 				<value>classpath:com/test/pojo/*.xml</value>
@@ -93,11 +96,11 @@
 		<property name="realm" ref="myRealm" />
 		<!-- 注入缓存管理器 -->
 		<property name="cacheManager" ref="cacheManager" />
-	</bean> 
+	</bean>
 
 
 	<!-- 配置shiro过滤器工厂对象 -->
-	 <bean id="shiroFilter"
+	<bean id="shiroFilter"
 		class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
 		<!-- 注入安全管理对象 -->
 		<property name="securityManager" ref="securityManager"></property>
@@ -114,33 +117,34 @@
 				/validatecode.jsp* = anon
 				/index.jsp = anon
 				/demo_index.action = anon
-				/* = authc
+				/demo_list.action = perms["list"]
+				/* = authc				
 			</value>
 		</property>
 	</bean>
 
 
 
-	<context:annotation-config />
+
 
 	<!-- 开启shiro注解支持 -->
-	 <bean id="defaultAdvisorAutoProxyCreator"
+	<bean id="defaultAdvisorAutoProxyCreator"
 		class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator">
-		<!-- 必须使用cglib方式为Action对象创建代理对象 如果value设置为 false则会受用jdk代理 jdk代理针对接口 例如action中实现了，ModleDriven
-		设置为true则使用cglib方式 基于继承 -->
+		<!-- 必须使用cglib方式为Action对象创建代理对象 如果value设置为 false则会受用jdk代理 jdk代理针对接口 例如action中实现了，ModleDriven 
+			设置为true则使用cglib方式 基于继承 -->
 		<property name="proxyTargetClass" value="true"></property>
 	</bean>
 	<!-- 配置shiro框架提供的切面类，用于创建 代理对象 -->
 	<bean
 		class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
-	</bean> 
+	</bean>
 
 	<!-- 注册缓存管理器 -->
-	 <bean id="cacheManager"
+	<bean id="cacheManager"
 		class="org.apache.shiro.cache.ehcache.EhCacheManager">
 		<!-- 注入ehcache的配置文件 -->
 		<property name="cacheManager" ref="ehCacheManager" />
-	</bean> 
+	</bean>
 
 	<bean id="ehCacheManager"
 		class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
@@ -153,12 +157,14 @@
 	<!-- 注册Realm -->
 	<bean id="myRealm" class="com.test.shiro.realm.MyRealm"></bean>
 
-	<aop:aspectj-autoproxy proxy-target-class="true" /> 
-
-	<!-- <bean name="testDao" class="com.test.dao.impl.TestDao"></bean> <bean 
-		name="testService" class="com.test.service.impl.TestService"> <property name="testDao" 
-		ref="testDao"></property> </bean> -->
-
+	<!-- <aop:aspectj-autoproxy proxy-target-class="true" /> -->
+	<aop:config proxy-target-class="true"/>
+		<!-- <bean name="testDao" class="com.test.dao.impl.TestDao"></bean> <bean 
+			name="testService" class="com.test.service.impl.TestService"> <property name="testDao" 
+			ref="testDao"></property> </bean> -->
+		<jaxws:client id="surveyServiceClient"
+			serviceClass="com.test.cxf.service.ISurveyService"
+			address="http://localhost:8080/cxf_test/SurveyWebService" />
 
 
 </beans>

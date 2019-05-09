@@ -69,5 +69,17 @@
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-context-support-4.2.4.RELEASE.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/struts2-convention-plugin-2.3.24.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/cglib-2.2.2.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/stax2-api-3.1.1.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/woodstox-core-asl-4.1.1.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/wsdl4j-1.6.2.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/xmlschema-core-2.0.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jaxb-api-2.2.1.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jaxb-impl-2.2.1.1.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/neethi-3.0.1.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/cxf-2.4.2.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/geronimo-activation_1.1_spec-1.1.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/geronimo-annotation_1.0_spec-1.1.1.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/geronimo-javamail_1.4_spec-1.7.1.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/geronimo-stax-api_1.0_spec-1.0.1.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
