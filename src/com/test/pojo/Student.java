@@ -1,6 +1,8 @@
 package com.test.pojo;
 
-public class Student{
+import java.io.Serializable;
+
+public class Student implements Serializable{
 	
 
 	private String id;
@@ -11,12 +13,15 @@ public class Student{
 	private Teacher teacher;
 
 	//default consttuctr	
-
+	public Student() {
+		super();
+	}
+	
 	public String getId() {
 		return id;
 	}
 
-	
+
 	public void setId(String id) {
 		this.id = id;
 	}

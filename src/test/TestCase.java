@@ -6,13 +6,16 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.junit.Test;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.test.pojo.Student;
 import com.test.pojo.Teacher;
+import com.test.service.ITestService;
 import com.test.utils.HibernateUtil;
 
 public class TestCase {
-
+/*
 	@Test
 	public void insert() {
 		Session session = HibernateUtil.getSession();
@@ -62,6 +65,14 @@ public class TestCase {
 			System.out.println(student);
 		}
 		session.close();
+	}
+	*/
+	
+	@Test
+	public void getBeanTest() {
+		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+		ITestService testService = context.getBean(ITestService.class);
+		System.out.println(testService.get());
 	}
 	
 	

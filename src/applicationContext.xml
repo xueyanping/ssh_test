@@ -7,9 +7,9 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd 
 	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd 
 	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd 
-	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd "
-	default-autowire="byName">
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd">
 
+	<context:component-scan base-package="com.test" />
 	<context:property-placeholder
 		location="classpath:conf/db.properties" />
 
@@ -68,10 +68,7 @@
 		class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
 		<property name="dataSource" ref="dataSource"></property>
 		<property name="hibernateProperties">
-			<props>
-				<!-- <prop key="hibernate.connection.driver_class">com.mysql.jdbc.Driver</prop> 
-					<prop key="hibernate.connection.url">jdbc:mysql:///ssh_crm</prop> <prop key="hibernate.connection.username">root</prop> 
-					<prop key="hibernate.connection.password">123456</prop> -->
+			<props>				
 				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
 
 				<prop key="hibernateshow_sql">true</prop>
@@ -80,8 +77,14 @@
 			</props>
 		</property>
 		<!-- 引入orm元数据 导入元数据所在包路径 Spring会自动扫描路径下的配置 -->
-		<property name="mappingDirectoryLocations"
-			value="classpath:com/test/pojo"></property>
+		<!-- <property name="mappingDirectoryLocations"
+			value="classpath:com/test/pojo"></property> -->
+			<!-- 注入hibernate的映射文件 -->
+		<property name="mappingLocations">
+			<list>
+				<value>classpath:com/test/pojo/*.xml</value>
+			</list>
+		</property>
 	</bean>
 
 	<!-- 注册安全管理器对象 -->
@@ -90,11 +93,11 @@
 		<property name="realm" ref="myRealm" />
 		<!-- 注入缓存管理器 -->
 		<property name="cacheManager" ref="cacheManager" />
-	</bean>
+	</bean> 
 
 
 	<!-- 配置shiro过滤器工厂对象 -->
-	<bean id="shiroFilter"
+	 <bean id="shiroFilter"
 		class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
 		<!-- 注入安全管理对象 -->
 		<property name="securityManager" ref="securityManager"></property>
@@ -102,50 +105,46 @@
 		<property name="loginUrl" value="/login.jsp"></property>
 		<property name="successUrl" value="/index.jsp"></property>
 		<property name="unauthorizedUrl" value="/unauthorized.jsp"></property>
-		<!--注入URL的拦截规则 起到过滤器的作用 -->
+		<!-- 注入URL的拦截规则 起到过滤器的作用 -->
 		<property name="filterChainDefinitions">
 			<value>
 				/css/** = anon
 				/js/** = anon
 				/images/** = anon
 				/validatecode.jsp* = anon
-				/login.jsp = anon
 				/index.jsp = anon
-				/userAction_login.action = anon
-				/demo_index.action = anon						
+				/demo_index.action = anon
 				/* = authc
 			</value>
 		</property>
 	</bean>
 
-	<context:component-scan base-package="com.test" />
+
 
 	<context:annotation-config />
 
 	<!-- 开启shiro注解支持 -->
-	<bean id="defaultAdvisorAutoProxyCreator"
+	 <bean id="defaultAdvisorAutoProxyCreator"
 		class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator">
-		<!-- 必须使用cglib方式为Action对象创建代理对象 如果value设置为 false则会受用jdk代理 jdk代理针对接口 例如action中实现了，ModleDriven -->
-		<!-- 设置为true则使用cglib方式 基于继承 -->
+		<!-- 必须使用cglib方式为Action对象创建代理对象 如果value设置为 false则会受用jdk代理 jdk代理针对接口 例如action中实现了，ModleDriven
+		设置为true则使用cglib方式 基于继承 -->
 		<property name="proxyTargetClass" value="true"></property>
 	</bean>
 	<!-- 配置shiro框架提供的切面类，用于创建 代理对象 -->
 	<bean
 		class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
-	</bean>
+	</bean> 
 
 	<!-- 注册缓存管理器 -->
-	<bean id="cacheManager"
+	 <bean id="cacheManager"
 		class="org.apache.shiro.cache.ehcache.EhCacheManager">
 		<!-- 注入ehcache的配置文件 -->
-		<property name="cacheManager"
-			ref="ehCacheManager" />
-	</bean>
+		<property name="cacheManager" ref="ehCacheManager" />
+	</bean> 
 
 	<bean id="ehCacheManager"
 		class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
-		<property name="configLocation"
-			value="classpath:ehcache.xml" />
+		<property name="configLocation" value="classpath:ehcache.xml" />
 		<property name="shared" value="true"></property>
 	</bean>
 
@@ -154,8 +153,8 @@
 	<!-- 注册Realm -->
 	<bean id="myRealm" class="com.test.shiro.realm.MyRealm"></bean>
 
-	<aop:aspectj-autoproxy proxy-target-class="true"/>
-	
+	<aop:aspectj-autoproxy proxy-target-class="true" /> 
+
 	<!-- <bean name="testDao" class="com.test.dao.impl.TestDao"></bean> <bean 
 		name="testService" class="com.test.service.impl.TestService"> <property name="testDao" 
 		ref="testDao"></property> </bean> -->

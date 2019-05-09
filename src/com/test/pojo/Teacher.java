@@ -13,6 +13,11 @@ public class Teacher implements Serializable{
 	
 	private Set<Student> student = new HashSet<Student>();
 
+	
+	public Teacher() {
+		super();
+	}
+
 	public String getId() {
 		return id;
 	}

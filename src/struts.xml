@@ -8,10 +8,11 @@
 			2.提供更多错误信息输出,方便开发时的调试
 	 -->
 	<constant name="struts.devMode" value="true"></constant>
+	<constant name="struts.objectFactory" value="spring"></constant>
 	<package name="strutsDemo" extends="struts-default" namespace="/">
 	
 		<!-- 配置拦截器 -->
-	<interceptors>
+	 <interceptors>
 		<interceptor name="loginInterceptor" class="com.test.interceptor.LoginInterceptor">
 			<param name="excludeMethods">index</param>
 		</interceptor>
@@ -29,6 +30,7 @@
 	
 		<action name="demo_*" class="com.test.action.DemoAction" method="{1}">
 			<result name="success">/success.jsp</result>
+			<result name="index">/index.jsp</result>
 			<result name="list">/WEB-INF/jsp/studentList.jsp</result>
 		</action>
 	</package>

@@ -24,8 +24,10 @@ public class LoginInterceptor extends MethodFilterInterceptor {
 		Student userName = (Student) getSession().getAttribute("student");
 		if(userName!=null) {
 			return invocation.invoke();
+		}else {
+			return "index";
 		}
-		return "success";
+		
 	}
 
 }

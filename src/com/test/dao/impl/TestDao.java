@@ -13,11 +13,10 @@ import com.test.pojo.Student;
 @Repository
 public class TestDao extends HibernateDaoSupport implements ITestDao {
 
-	@Resource 
-	private SessionFactory sessionFactory;
-	/*public void setMySessionFactory(SessionFactory sessionFactory) {
+	@Resource	
+	public void setMySessionFactory(SessionFactory sessionFactory) {
 		super.setSessionFactory(sessionFactory);
-	}*/
+	}
 	
 	@Override
 	public Student get() {		
