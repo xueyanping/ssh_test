@@ -7,6 +7,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.test.cxf.service.ISurveyService;
+import com.test.exception.ServiceException;
 import com.test.pojo.Student;
 import com.test.service.ITestService;
 
@@ -21,7 +22,7 @@ public class TextAutoWired {
 	private ISurveyService surveyService;
 	
 	@Test
-	public void testAAA() {
+	public void testAAA() throws ServiceException {
 		Student student = testService.get();
 		System.out.println(student);
 	}

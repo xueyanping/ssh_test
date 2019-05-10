@@ -27,6 +27,10 @@
 		<global-results>
 			<result name="error">/error.jsp</result>
 		</global-results>
+		
+		<global-exception-mappings>
+			<exception-mapping result="error" exception="com.test.exception.SysException"></exception-mapping>
+		</global-exception-mappings>
 	
 		<action name="demo_*" class="com.test.action.DemoAction" method="{1}">
 			<result name="success">/success.jsp</result>

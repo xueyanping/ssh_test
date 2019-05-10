@@ -9,6 +9,7 @@ import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.test.exception.ServiceException;
 import com.test.pojo.Student;
 import com.test.pojo.Teacher;
 import com.test.service.ITestService;
@@ -69,7 +70,7 @@ public class TestCase {
 	*/
 	
 	@Test
-	public void getBeanTest() {
+	public void getBeanTest() throws ServiceException {
 		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 		ITestService testService = context.getBean(ITestService.class);
 		System.out.println(testService.get());
