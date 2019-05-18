@@ -3,39 +3,46 @@
 	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
 	"http://struts.apache.org/dtds/struts-2.3.dtd">
 <struts>
-	<!-- 指定struts2是否以开发模式运行
-			1.热加载主配置.(不需要重启即可生效)
-			2.提供更多错误信息输出,方便开发时的调试
-	 -->
+	<!-- 指定struts2是否以开发模式运行 1.热加载主配置.(不需要重启即可生效) 2.提供更多错误信息输出,方便开发时的调试 -->
 	<constant name="struts.devMode" value="true"></constant>
 	<constant name="struts.objectFactory" value="spring"></constant>
-	<package name="strutsDemo" extends="struts-default" namespace="/">
-	
+	<!-- 定义允许文件上传的总大小 -->	
+	<constant name="struts.multipart.maxSize" value="40000000"></constant>
+	<package name="strutsDemo" extends="struts-default"
+		namespace="/">
+
 		<!-- 配置拦截器 -->
-	 <interceptors>
-		<interceptor name="loginInterceptor" class="com.test.interceptor.LoginInterceptor">
-			<param name="excludeMethods">index</param>
-		</interceptor>
-		<interceptor-stack name="myStack">
-			<interceptor-ref name="loginInterceptor"></interceptor-ref>
-			<interceptor-ref name="defaultStack"></interceptor-ref>
-		</interceptor-stack>
-	</interceptors>
-	
-	<default-interceptor-ref name="myStack"></default-interceptor-ref>
-	
+		<interceptors>
+			<interceptor name="loginInterceptor"
+				class="com.test.interceptor.LoginInterceptor">
+				<param name="excludeMethods">index</param>
+			</interceptor>
+			<interceptor-stack name="myStack">
+				<interceptor-ref name="loginInterceptor"></interceptor-ref>
+				 <interceptor-ref name="defaultStack">
+					<param name="fileUpload.maximumSize">40000000</param>
+					<!-- <param name="fileUpload.allowedTypes">image/png,image/gif,image/jpeg,image/jpg,text/xml,text/plain</param> -->
+					<!-- <param name="fileUpload.allowedExtensions">.jpg,.png,.xml,.txt,.pdf,.doc,.docx,.avi</param> -->
+				</interceptor-ref> 
+			</interceptor-stack>
+		</interceptors>
+
+		<default-interceptor-ref name="myStack"></default-interceptor-ref>
+
 		<global-results>
 			<result name="error">/error.jsp</result>
 		</global-results>
-		
+
 		<global-exception-mappings>
-			<exception-mapping result="error" exception="com.test.exception.SysException"></exception-mapping>
+			<exception-mapping result="error"
+				exception="com.test.exception.SysException"></exception-mapping>
 		</global-exception-mappings>
-	
+
 		<action name="demo_*" class="com.test.action.DemoAction" method="{1}">
 			<result name="success">/success.jsp</result>
 			<result name="index">/index.jsp</result>
 			<result name="list">/WEB-INF/jsp/studentList.jsp</result>
+			<result name="input">/error.jsp</result>
 		</action>
 	</package>
 </struts>

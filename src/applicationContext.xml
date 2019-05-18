@@ -164,45 +164,48 @@
 		ref="testDao"></property> </bean> -->
 	<jaxws:client id="surveyServiceClient"
 		serviceClass="com.test.cxf.service.ISurveyService"
-		address="http://localhost:8070/cxf_test/SurveyWebService" />
+		address="http://localhost:8081/cxf_test/SurveyWebService" />
 
 	<!-- quartz任务调度相关 -->
 
 	<!-- 注册自定义作业类 -->
-	<bean id="myJob" class="com.test.quartz.jobs.MailJob">
+	
+	<!-- <bean id="myJob" class="com.test.quartz.jobs.MailJob">
 		<property name="username" value="1564433435@qq.com" />
 		<property name="password" value="ubugdxcbotnshcga" />
 		<property name="smtpServer" value="smtp.qq.com" />
-	</bean>
+	</bean> -->
 
-	<bean id="jobDetail"
+<!-- 	<bean id="jobDetail"
 		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
-		<!-- 注入目标类 -->
+		注入目标类
 		<property name="targetObject" ref="myJob"></property>
-		<!-- 注入目标方法 -->
+		注入目标方法
 		<property name="targetMethod" value="execute"></property>
-	</bean>
-
-	<!-- 定义触发器 -->
+	</bean> -->
+<!-- 
+	 定义触发器
 	<bean id="myTrigger"
 		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
-		<!-- 注入任务详情对象 -->
+		注入任务详情对象
 		<property name="jobDetail" ref="jobDetail" />
 		<property name="cronExpression">
-			<!-- 注入cron表达式，通过这个表达式指定触发的时间点 每5秒触发一次 -->
+			注入cron表达式，通过这个表达式指定触发的时间点 每5秒触发一次
 			<value>0/5 * * * * ?</value>
 		</property>
-	</bean>
+	</bean> 
+	-->
 
 	<!-- 配置调度工场 -->
-	<bean id="schedulerFactoryBean"
+	
+	<!-- <bean id="schedulerFactoryBean"
 		class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
-		<!-- 注入触发器 -->
+		注入触发器
 		<property name="triggers">
 			<list>
 				<ref bean="myTrigger" />
 			</list>
 		</property>
-	</bean>
+	</bean> -->
 
 </beans>

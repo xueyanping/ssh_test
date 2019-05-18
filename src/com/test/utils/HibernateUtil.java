@@ -5,7 +5,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 public class HibernateUtil {
-	/*
+/*
 	public static SessionFactory sessionFactory; 
 	public static Session session;
 	
@@ -13,13 +13,13 @@ public class HibernateUtil {
 		Configuration config = new Configuration().configure();
 		sessionFactory = config.buildSessionFactory();
 	}
-	
 	*/
+	
 	/**
 	 * 开启一个新线程
 	 * @return
 	 */
-	/*
+/*
 	public static Session getSession(){
 		session = sessionFactory.openSession();		
 		return session;

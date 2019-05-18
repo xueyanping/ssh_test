@@ -1,5 +1,7 @@
 package com.test.action;
 
+import java.io.File;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.shiro.SecurityUtils;
@@ -35,6 +37,38 @@ public class DemoAction extends ActionSupport implements ModelDriven<Student> {
 	@Autowired
 	private ISurveyService surveyService;
 	
+	//上传文件属性驱动
+	private File[] upload;
+	private String[] uploadContentType;
+	private String[] uploadFileName;
+
+
+	
+
+	public File[] getUpload() {
+		return upload;
+	}
+
+	public void setUpload(File[] upload) {
+		this.upload = upload;
+	}
+
+	public String[] getUploadContentType() {
+		return uploadContentType;
+	}
+
+	public void setUploadContentType(String[] uploadContentType) {
+		this.uploadContentType = uploadContentType;
+	}
+
+	public String[] getUploadFileName() {
+		return uploadFileName;
+	}
+
+	public void setUploadFileName(String[] uploadFileName) {
+		this.uploadFileName = uploadFileName;
+	}
+
 	Student student = new Student();
 
 	public String index() throws ServiceException, ActionException {

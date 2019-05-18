@@ -2,7 +2,8 @@
 1、整合ssh
 2、添加shiro权限控制
 3、添加登录拦截器
-
+4、增加文件上传功能
+5、上传sql文件至github
 #遇到的问题及解决办法
 1、
 #question
@@ -21,3 +22,18 @@ ssh整合shiro时 Controller层使用Shiro注解@RequiresPermissions后使用@Au
 继问题1发现使用shiro的@RequiresPermissions在整合cxf时@Autowired和set方法两种注入方法同时失效
 #answer
 这是由于shiro的加载顺序实在bean之前就已经注入了的（此时还是不理解，待以后填坑），根本原因是使用的Shiro的@RequiresPermissions注解，因此建议以后将需要授权的方法写在xml配置文件中，这样@Autowired就完全正常注入了（该问题困扰两天后得出此解决方法，以后有更好的的方法再补充）
+
+4、
+#question
+(1)文件上传时无法上传指定类型文件（如.rar,.pdf,.avi,.mp4）
+(2)上传出错时抛出 no result and input错误
+(3)不能上传大文件
+#answer
+(1)无法上传指定文件是由于在默认的拦截器栈中配置了<param name="fileUpload.allowedExtensions">，其中没有添加需要上传的文件后缀名（多个后缀名用逗号隔开如.pdf,.avi.rar）
+(2)抛出该错误是由于上传文件出现错误并且没有在struts.xml中配置name为“input”的result标签
+(3)默认上传的文件大小为2M，若要超出2M则需要在struts.xml中配置文件上传的总大小有两种配置方式
+第一种是配置常量如：
+<constant name="struts.multipart.maxSize" value="40000000"></constant>
+第二种是在默认拦截器栈中配置
+<param name="fileUpload.maximumSize">40000000</param>
+

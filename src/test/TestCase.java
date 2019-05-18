@@ -32,7 +32,7 @@ public class TestCase {
 		transaction.commit();
 		session.close();		
 	}
-	
+	/*
 	@Test
 	public void insert2() {
 		Session session = HibernateUtil.getSession();
