@@ -6,7 +6,7 @@
 	<!-- 指定struts2是否以开发模式运行 1.热加载主配置.(不需要重启即可生效) 2.提供更多错误信息输出,方便开发时的调试 -->
 	<constant name="struts.devMode" value="true"></constant>
 	<constant name="struts.objectFactory" value="spring"></constant>
-	<!-- 定义允许文件上传的总大小 -->	
+	<!-- 定义允许文件上传的总大小 -->
 	<constant name="struts.multipart.maxSize" value="40000000"></constant>
 	<package name="strutsDemo" extends="struts-default"
 		namespace="/">
@@ -19,11 +19,11 @@
 			</interceptor>
 			<interceptor-stack name="myStack">
 				<interceptor-ref name="loginInterceptor"></interceptor-ref>
-				 <interceptor-ref name="defaultStack">
+				<interceptor-ref name="defaultStack">
 					<param name="fileUpload.maximumSize">40000000</param>
 					<!-- <param name="fileUpload.allowedTypes">image/png,image/gif,image/jpeg,image/jpg,text/xml,text/plain</param> -->
 					<!-- <param name="fileUpload.allowedExtensions">.jpg,.png,.xml,.txt,.pdf,.doc,.docx,.avi</param> -->
-				</interceptor-ref> 
+				</interceptor-ref>
 			</interceptor-stack>
 		</interceptors>
 
@@ -38,11 +38,24 @@
 				exception="com.test.exception.SysException"></exception-mapping>
 		</global-exception-mappings>
 
-		<action name="demo_*" class="com.test.action.DemoAction" method="{1}">
+		<action name="demo_*" class="com.test.action.DemoAction"
+			method="{1}">
 			<result name="success">/success.jsp</result>
 			<result name="index">/index.jsp</result>
 			<result name="list">/WEB-INF/jsp/studentList.jsp</result>
 			<result name="input">/error.jsp</result>
+			<!-- 下载相关 -->
+			<result name="downloadStart" type="stream">
+				<param name="contentType">application/octet-stream;charset=utf-8</param>
+				<!-- inputName 流对象名 —— 比如这里写inputStream，它就会自动去找Action中的getInputStream方法。 -->
+				<param name="inputName">inputStream</param>
+				<!-- contentDisposition 使用经过转码的文件名作为下载文件名 —— 默认格式是attachment;filename="${fileName}"，
+				将调用该Action中的getFilename方法，在此方法中的返回值为将要下载的文件的文件名以及后缀名。 -->
+				<param name="contentDisposition">attachment;filename=${filename}</param>
+				<!-- bufferSize 下载文件的缓冲大小 -->
+				<param name="bufferSize">4096</param>
+			</result>
 		</action>
+	
 	</package>
 </struts>

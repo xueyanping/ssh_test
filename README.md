@@ -4,6 +4,10 @@
 3、添加登录拦截器
 4、增加文件上传功能
 5、上传sql文件至github
+6、多文件上传
+7、文件下载
+
+
 #遇到的问题及解决办法
 1、
 #question
@@ -36,4 +40,14 @@ ssh整合shiro时 Controller层使用Shiro注解@RequiresPermissions后使用@Au
 <constant name="struts.multipart.maxSize" value="40000000"></constant>
 第二种是在默认拦截器栈中配置
 <param name="fileUpload.maximumSize">40000000</param>
-
+5、
+#question
+文件下载抛出 cannot find inputName错误说明需要下载的文件的路径没有找到或书写错误
+#answer
+路径分两种第一种是要下载的文件存放在工程中的webContent下可以通过
+ServletActionContext.getServletContext().getResourceAsStream(webappsDir+"\\upload\\"+filename)的方式获得
+注：在struts中配置的如inputStream filename不需要在action中声明相应属性只需要提供相应的get方法即可
+第二种要下载的文件不存在于项目中而在本地存储需要通过inputStream = new FileInputStream(new File(webappsDir+"\\upload\\"+filename))获取输入流
+下载的过程：
+1、先找到下载的方法**.action,通过方法返回的字符串与struts配置的result相匹配
+2、执行获取输入流inputStream的方法getInputStream,最后获取下载的文件的文件名及后缀名

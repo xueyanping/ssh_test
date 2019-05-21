@@ -11,13 +11,16 @@
 <body>
 <form action="${pageContext.request.contextPath }/demo_index.action" method="post" enctype="multipart/form-data">
 	name:<input type="text" name="name">
-	sex:<input type="text" name="sex">
-	 上传文件1：<input type="file" name="upload">
-	 上传文件2：<input type="file" name="upload">
-	 上传文件3：<input type="file" name="upload">
-	 上传文件4：<input type="file" name="upload">
-	 上传文件5：<input type="file" name="upload">
+	sex:<input type="text" name="sex"><br/>
+	 上传文件1：<input type="file" name="upload"><br/>
+	 上传文件2：<input type="file" name="upload"><br/>
+	 上传文件3：<input type="file" name="upload"><br/>
+	 上传文件4：<input type="file" name="upload"><br/>
+	 上传文件5：<input type="file" name="upload"><br/>
 	<input type="submit" value="提交">
 </form>
+<br/>
+<br/>
+<br/>
 </body>
 </html>

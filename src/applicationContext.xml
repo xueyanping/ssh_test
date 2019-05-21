@@ -115,8 +115,9 @@
 				/js/** = anon
 				/images/** = anon
 				/validatecode.jsp* = anon
-				/index.jsp = anon
+				/index.jsp = anon				
 				/demo_index.action = anon
+				/demo_doDownload.action = anon
 				/demo_list.action = perms["list"]
 				/* = authc
 			</value>
